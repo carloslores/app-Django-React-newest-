@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+    
     'corsheaders',
+    'rest_framework',
+    'channels',
     
 
     'notes',
@@ -77,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'notes_project.wsgi.application'
+WSGI_APPLICATION = 'notes_project.wsgi.application' #http
 
 
 # Database
@@ -128,3 +130,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+ASGI_APPLICATION = "notes_project.routing.application" #websocket
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
